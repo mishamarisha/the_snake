@@ -108,8 +108,10 @@ class Snake(GameObject):
         с координатами её сегментов.
         """
         position_now = self.get_head_position()
-        new_x = (position_now[0] + self.direction[0] * GRID_SIZE) % SCREEN_WIDTH
-        new_y = (position_now[1] + self.direction[1] * GRID_SIZE) % SCREEN_HEIGHT
+        new_x = (
+            position_now[0] + self.direction[0] * GRID_SIZE) % SCREEN_WIDTH
+        new_y = (
+            position_now[1] + self.direction[1] * GRID_SIZE) % SCREEN_HEIGHT
         new_position = (new_x, new_y)
         if len(self.positions) > self.length:
             self.last = self.positions.pop()
