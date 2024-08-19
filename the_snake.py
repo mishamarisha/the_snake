@@ -41,7 +41,7 @@ pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
 
 
-class GameObject():
+class GameObject:
     """Родительский класс для всех классов игровых объектов.
     Описывает их общие атрибуты и методы.
     """
@@ -94,8 +94,6 @@ class Snake(GameObject):
     def __init__(self, position=SCREEN_CENTER, body_color=SNAKE_COLOR):
         super().__init__(position=position, body_color=body_color)
         self.reset()
-        self.next_direction = None
-        self.last = None
 
     def is_opposite_direction(self, direction, current_direction):
         """Проверяет, не является ли новое направление
@@ -140,6 +138,7 @@ class Snake(GameObject):
         self.length = 1
         self.positions = [(SCREEN_CENTER)]
         self.direction = choice(DIRECTIONS)
+        self.last = None
 
 
 def handle_keys(game_object):
@@ -157,10 +156,11 @@ def handle_keys(game_object):
             }
             if event.key in actions_directions:
                 direction = actions_directions[event.key]
-                if not game_object.is_opposite_direction(direction,
-                                                         game_object.direction
-                                                         ):
-                    game_object.update_direction(direction)
+                opposit_direction = game_object.is_opposite_direction(
+                    direction, game_object.direction)
+                if opposit_direction:
+                    continue
+                game_object.update_direction(direction)
 
 
 def main():
